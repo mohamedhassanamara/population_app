@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
+import 'package:population_app/widgets/stamp_scroll.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,84 +10,65 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: MyWidget(),
+      home: SafeArea(
+        child: Scaffold(
+          body: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'POPULATION\nAPP',
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
+                  ),
+                  CircleAvatar(
+                    backgroundColor: Colors.black,
+                    radius: 30,
+                    child: Icon(
+                      Icons.favorite,
+                      size: 40,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+              Divider(
+                color: Colors.black,
+                height: 20,
+                thickness: 5,
+              ),
+              StampScroll(),
+              Divider(
+                color: Colors.black,
+                height: 20,
+                thickness: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.filter_alt_sharp,
+                        size: 40,
+                      ),
+                      Text(
+                        'Filter By Country',
+                        style: TextStyle(fontSize: 28),
+                      ),
+                    ],
+                  ),
+                  Icon(
+                    Icons.delete_forever,
+                    size: 40,
+                    color: Colors.red,
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
-}
-
-class MyWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
-          width: MediaQuery.of(context).size.width * 0.4,
-          child: ClipPath(
-              clipper: MyClipper(),
-              child: Container(
-                alignment: Alignment.center,
-                color: Colors.black12,
-                child: Container(
-
-                  height: MediaQuery.of(context).size.height * 0.25,
-                  width: MediaQuery.of(context).size.width * 0.30,
-                  color: Colors.grey,
-                  child: Text("f"),
-                )
-              ),),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
-          width: MediaQuery.of(context).size.width * 0.4,
-          child: ClipPath(
-              clipper: MyClipper(),
-              child: Container(
-                alignment: Alignment.center,
-                color: Colors.red,
-                child: const Text("abc"),
-              )),
-        ),
-      ]),
-    );
-  }
-}
-
-class MyClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    double smallLineLength = size.width / 7;
-    Path path = Path();
-    for (int i = 1; i <= 20; i += 2) {
-      path.lineTo(0, smallLineLength * (i));
-      path.arcToPoint(Offset(0, smallLineLength * (i + 1)),
-          radius: Radius.circular(5));
-    }
-    for (int i = 1; i <= 20; i += 2) {
-      path.lineTo(smallLineLength * i, size.height);
-      path.arcToPoint(Offset(smallLineLength * (i + 1), size.height),
-          radius: Radius.circular(5));
-    }
-    for (int i = 1; i <= 20; i += 2) {
-      path.lineTo(size.width, size.height - smallLineLength * (i));
-      path.arcToPoint(
-          Offset(size.width, size.height - smallLineLength * (i + 1)),
-          radius: Radius.circular(5));
-    }
-    for (int i = 1; i <= 20; i += 2) {
-      path.lineTo(size.width - smallLineLength * (i), 0);
-      path.arcToPoint(Offset(size.width - smallLineLength * (i + 1), 0),
-          radius: Radius.circular(5));
-    }
-    // path.lineTo(smallLineLength*2, 0);
-
-    path.close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper old) => false;
 }
