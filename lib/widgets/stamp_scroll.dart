@@ -10,10 +10,19 @@ class StampScroll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Config(context).height *.7,
+      height: Config(context).height * .7,
       child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
         child: Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                StampWidget(),
+                StampWidget(),
+              ],
+            ),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

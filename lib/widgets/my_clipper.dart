@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    double smallLineLength = size.width / 7;
+    double smallLineLength = size.width / 15;
     Path path = Path();
     for (int i = 1; i <= 20; i += 2) {
       path.lineTo(0, smallLineLength * (i));
