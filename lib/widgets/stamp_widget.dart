@@ -1,12 +1,19 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:population_app/config.dart';
 
 import 'my_clipper.dart';
 import 'package:flutter/material.dart';
 
 class StampWidget extends StatelessWidget {
-  const StampWidget({
-    Key? key,
-  }) : super(key: key);
+  final String flag;
+  final String city;
+  final String population;
+  final String year;
+  StampWidget(
+      {required this.flag,
+      required this.population,
+      required this.city,
+      required this.year});
 
   @override
   Widget build(BuildContext context) {
@@ -28,30 +35,37 @@ class StampWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.red,
-                      radius: 25,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: SvgPicture.network(
+                        flag,
+                        width: 30,
+                        height: 40,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     SizedBox(
                       width: Config(context).width * 0.15,
-                      child: Text(
-                        'Tunis',
-                        style: TextStyle(
-                          fontSize: 22,
+                      child: FittedBox(
+                        child: Text(
+                          city,
+                          style: TextStyle(
+                            fontSize: 22,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
                 Text(
-                  'data',
+                  'Population',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  '4700000',
+                  population,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -60,9 +74,8 @@ class StampWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-
                     Text(
-                      '2017',
+                      year,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w900,

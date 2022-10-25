@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:population_app/screens/country_list.dart';
+import 'package:population_app/widgets/country_item.dart';
 import 'package:population_app/widgets/stamp_scroll.dart';
+import 'package:provider/provider.dart';
+
+import 'notifiers/country_notifier.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => CountryNotifier(),
+      ),
+    ],
+    child: MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyApp(),
     ),
-  );
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -54,61 +60,24 @@ class MyApp extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
+                  TextButton(
                     onPressed: () {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            content: Stack(
-                              children: <Widget>[
-                                Positioned(
-                                  right: -40.0,
-                                  top: -40.0,
-                                  child: InkResponse(
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: CircleAvatar(
-                                      child: Icon(Icons.close),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  ),
-                                ),
-                                Form(
-                                  key: _formKey,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: TextFormField(),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: TextFormField(),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ElevatedButton(
-                                          child: Text("Submitß"),
-                                          onPressed: () {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              _formKey.currentState!.save();
-                                            }
-                                          },
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
+                            content: Column(
+                              children: [
+                                CountryItem(),
+                                CountryItem(),
+                                CountryItem(),
                               ],
                             ),
                           );
                         },
                       );
                     },
+                    style: TextButton.styleFrom(foregroundColor: Colors.black),
                     child: Row(
                       children: [
                         Icon(
