@@ -6,7 +6,7 @@ import '../models/city.dart';
 import '../models/country.dart';
 
 class Services {
-  Future<List> getCountries() async {
+  Future<List> getCities() async {
     var client = http.Client();
     List<Country> countries = [];
     var response1 = await client.get(
@@ -28,5 +28,16 @@ class Services {
         .forEach((jsonMap) => {cities.add(City.fromJson(jsonMap, countries))});
 
     return cities;
+  }
+  Future<List> getCountries() async {
+    var client = http.Client();
+    List<Country> countries = [];
+    var response1 = await client.get(
+      Uri.parse('https://countriesnow.space/api/v0.1/countries/flag/images'),
+    );
+    final jsonString1 = response1.body;
+    final jsonArray1 = jsonDecode(jsonString1)['data'];
+    jsonArray1.forEach((jsonMap) => {countries.add(Country.fromJson(jsonMap))});
+    return countries;
   }
 }

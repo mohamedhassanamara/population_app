@@ -7,26 +7,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'my_clipper.dart';
 import 'package:flutter/material.dart';
 
-class StampWidget extends StatefulWidget {
+class FStampWidget extends StatefulWidget {
   final String flag;
   final String city;
   final String id;
   final String population;
   final String year;
-  StampWidget(
+  FStampWidget(
       {required this.flag,
-      required this.id,
-      required this.population,
-      required this.city,
-      required this.year}){
-
+        required this.id,
+        required this.population,
+        required this.city,
+        required this.year}){
   }
 
   @override
-  State<StampWidget> createState() => _StampWidgetState();
+  State<FStampWidget> createState() => _FStampWidgetState();
 }
 
-class _StampWidgetState extends State<StampWidget> {
+class _FStampWidgetState extends State<FStampWidget> {
   bool isFavorite = false;
 
   void checkFavorite() async{
@@ -44,7 +43,7 @@ class _StampWidgetState extends State<StampWidget> {
   }
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return isFavorite?GestureDetector(
       onLongPress: () {
         Favorites().changeFavorite(widget.id);
         setState(() {
@@ -58,9 +57,8 @@ class _StampWidgetState extends State<StampWidget> {
           clipper: MyClipper(),
           child: Container(
             alignment: Alignment.center,
-            color: isFavorite
-                ? CupertinoColors.systemYellow
-                : Color(0xFFA6A6A6),
+            color:
+            isFavorite ? CupertinoColors.systemYellow : Color(0xFFA6A6A6),
             child: Container(
               height: Config(context).height * 0.27,
               width: Config(context).width * 0.35,
@@ -134,6 +132,6 @@ class _StampWidgetState extends State<StampWidget> {
           ),
         ),
       ),
-    );
+    ):Text('gg');
   }
 }

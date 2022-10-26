@@ -6,6 +6,7 @@ class City {
   final List population;
   // final String year;
   City({
+
     required this.name,
     required this.country,
     required this.population,

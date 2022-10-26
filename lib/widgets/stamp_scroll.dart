@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:population_app/config.dart';
-import 'package:population_app/notifiers/country_notifier.dart';
+import 'package:population_app/notifiers/city_notifier.dart';
 import 'package:population_app/widgets/stamp_widget.dart';
 import 'package:population_app/widgets/waiting.dart';
 import 'package:provider/provider.dart';
 
+import '../services/favorites.dart';
+import 'favorite_stamp.dart';
+
 class StampScroll extends StatefulWidget {
-  const StampScroll({
-    Key? key,
-  }) : super(key: key);
+  final bool dis;
+  const StampScroll( {
+    required this.dis,
+
+  });
 
   @override
   State<StampScroll> createState() => _StampScrollState();
@@ -18,8 +23,9 @@ class _StampScrollState extends State<StampScroll> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<CountryNotifier>(context, listen: false).fetchCountries();
+      Provider.of<CityNotifier>(context, listen: false).fetchCities();
     });
+    Favorites().initial();
     super.initState();
   }
 
@@ -27,7 +33,7 @@ class _StampScrollState extends State<StampScroll> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: Config(context).height * .7,
-      child: Consumer<CountryNotifier>(
+      child: Consumer<CityNotifier>(
         builder: (context, notifier, child) {
           if (notifier.isLoading) {
             return Waiting();
@@ -36,15 +42,22 @@ class _StampScrollState extends State<StampScroll> {
             return Text('data');
           } else {
             return GridView.builder(
-              itemCount: notifier.countries.length,
+              itemCount: notifier.cities.length,
               itemBuilder: (BuildContext context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: StampWidget(
-                    flag: notifier.countries[index].country,
-                    city: notifier.countries[index].name,
-                    year: notifier.countries[index].population.first['year'],
-                    population: notifier.countries[index].population.first['value'],
+                  child:widget.dis?FStampWidget(
+                    id: notifier.cities[index].name,
+                    flag: notifier.cities[index].country,
+                    city: notifier.cities[index].name,
+                    year: notifier.cities[index].population.first['year'],
+                    population: notifier.cities[index].population.first['value'],
+                  ): StampWidget(
+                    id: notifier.cities[index].name,
+                    flag: notifier.cities[index].country,
+                    city: notifier.cities[index].name,
+                    year: notifier.cities[index].population.first['year'],
+                    population: notifier.cities[index].population.first['value'],
                   ),
                 );
               },
