@@ -4,7 +4,7 @@ import 'package:population_app/config.dart';
 import 'package:population_app/services/favorites.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'my_clipper.dart';
+import 'basic/my_clipper.dart';
 import 'package:flutter/material.dart';
 
 class FStampWidget extends StatefulWidget {
@@ -45,7 +45,7 @@ class _FStampWidgetState extends State<FStampWidget> {
   Widget build(BuildContext context) {
     return isFavorite?GestureDetector(
       onLongPress: () {
-        Favorites().changeFavorite(widget.id);
+        Favorites.changeFavorite(widget.id);
         setState(() {
           isFavorite = !isFavorite;
         });

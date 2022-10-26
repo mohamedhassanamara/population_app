@@ -4,7 +4,7 @@ import 'package:population_app/config.dart';
 import 'package:population_app/services/favorites.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'my_clipper.dart';
+import 'basic/my_clipper.dart';
 import 'package:flutter/material.dart';
 
 class StampWidget extends StatefulWidget {
@@ -18,9 +18,7 @@ class StampWidget extends StatefulWidget {
       required this.id,
       required this.population,
       required this.city,
-      required this.year}){
-
-  }
+      required this.year}) {}
 
   @override
   State<StampWidget> createState() => _StampWidgetState();
@@ -29,26 +27,28 @@ class StampWidget extends StatefulWidget {
 class _StampWidgetState extends State<StampWidget> {
   bool isFavorite = false;
 
-  void checkFavorite() async{
+  void checkFavorite() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> favorites =  prefs.getStringList('favorite')?? [];
+    List<String> favorites = prefs.getStringList('favorite') ?? [];
     setState(() {
       isFavorite = favorites.contains(widget.id);
     });
   }
+
   @override
   void initState() {
     // TODO: implement initState
     checkFavorite();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onLongPress: () {
-        Favorites().changeFavorite(widget.id);
+        Favorites.changeFavorite(widget.id);
         setState(() {
-          isFavorite = !isFavorite;
+          isFavorite = true;
         });
       },
       child: SizedBox(
@@ -58,9 +58,8 @@ class _StampWidgetState extends State<StampWidget> {
           clipper: MyClipper(),
           child: Container(
             alignment: Alignment.center,
-            color: isFavorite
-                ? CupertinoColors.systemYellow
-                : Color(0xFFA6A6A6),
+            color:
+                isFavorite ? CupertinoColors.systemYellow : Color(0xFFA6A6A6),
             child: Container(
               height: Config(context).height * 0.27,
               width: Config(context).width * 0.35,
@@ -111,13 +110,21 @@ class _StampWidgetState extends State<StampWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Visibility(
-                        child: Icon(
-                          Icons.star,
-                          color: CupertinoColors.systemYellow,
-                          size: 25,
+                      GestureDetector(
+                        onTap: () {
+                          Favorites.changeFavorite(widget.id);
+                          setState(() {
+                            isFavorite = false;
+                          });
+                        },
+                        child: Visibility(
+                          child: Icon(
+                            Icons.star,
+                            color: CupertinoColors.systemYellow,
+                            size: 25,
+                          ),
+                          visible: isFavorite,
                         ),
-                        visible: isFavorite,
                       ),
                       Text(
                         widget.year,

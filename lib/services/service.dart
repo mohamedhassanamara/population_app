@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +7,7 @@ import '../models/city.dart';
 import '../models/country.dart';
 
 class Services {
-  Future<List> getCities() async {
+  static Future<List> getCities() async {
     var client = http.Client();
     List<Country> countries = [];
     var response1 = await client.get(
@@ -25,13 +24,13 @@ class Services {
     );
     final jsonString = response2.body;
     final jsonArray = jsonDecode(jsonString)['data'];
-    print(jsonArray[0]['country']);
     jsonArray
         .forEach((jsonMap) => {cities.add(City.fromJson(jsonMap, countries))});
 
     return cities;
   }
-  Future<List> getCountries() async {
+
+  static Future<List> getCountries() async {
     var client = http.Client();
     List<Country> countries = [];
     var response1 = await client.get(
@@ -43,11 +42,12 @@ class Services {
     return countries;
   }
 
-
-  Future<List> getCountry() async {
+  static Future<List> getCountry() async {
     var client = http.Client();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Country country = Country(name: prefs.getString('name')??'', flag: prefs.getString('flag')??'');
+    Country country = Country(
+        name: prefs.getString('name') ?? '',
+        flag: prefs.getString('flag') ?? '');
 
     var cities = [];
     var response2 = await client.get(
@@ -56,8 +56,9 @@ class Services {
     );
     final jsonString = response2.body;
     final jsonArray = jsonDecode(jsonString)['data'];
-    jsonArray
-        .forEach((jsonMap) => {cities.add(City.fromJson(jsonMap, [country]))});
+    jsonArray.forEach((jsonMap) => {
+          cities.add(City.fromJson(jsonMap, [country]))
+        });
 
     return cities.where((element) => element.name == country.name).toList();
   }

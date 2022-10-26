@@ -16,7 +16,7 @@ class CountryNotifier extends ChangeNotifier {
   Future<void> fetchCountries() async {
     _state = CountriesNotifierState.Loading;
     notifyListeners();
-    var response = await Services().getCountries();
+    var response = await Services.getCountries();
     _countries = response;
     if (countries.isEmpty)
       _state = CountriesNotifierState.NotFound;

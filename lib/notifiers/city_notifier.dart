@@ -16,7 +16,7 @@ class CityNotifier extends ChangeNotifier {
   Future<void> fetchCities() async {
     _state = CitiesNotifierState.Loading;
     notifyListeners();
-    var response = await Services().getCities();
+    var response = await Services.getCities();
     _cities = response;
     if (cities.isEmpty)
       _state = CitiesNotifierState.NotFound;

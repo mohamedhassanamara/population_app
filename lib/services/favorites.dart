@@ -3,13 +3,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Favorites{
 
-  void initial() async {
+  static void initial() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if(!prefs.containsKey('favorite'))
       prefs.setStringList('favorite',[]);
 
   }
-  void changeFavorite(String string) async{
+
+  static void changeFavorite(String string) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> favorites = prefs.getStringList('favorite')?? [];
     if(favorites.contains(string)){
@@ -17,27 +18,7 @@ class Favorites{
     } else{
       favorites.add(string);
     }
-    print(favorites);
     prefs.setStringList('favorite', favorites);
 
-  }
-
-
-  void displayFavorites() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(prefs.containsKey('isFavorite'))
-      prefs.setBool('isFavorite', prefs.getBool('isFavorite')?? false);
-    else
-      prefs.setBool('isFavorite', true);
-  }
-
-  void setString(String key, String value) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('key', 'value');
-  }
-
-  void removeString(String key) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('key');
   }
 }

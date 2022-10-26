@@ -1,24 +1,29 @@
-import 'package:flutter/material.dart';
-import 'package:population_app/config.dart';
-import 'package:population_app/notifiers/city_notifier.dart';
+import 'package:flutter/Material.dart';
 import 'package:population_app/widgets/stamp_widget.dart';
 import 'package:population_app/widgets/basic/waiting.dart';
 import 'package:provider/provider.dart';
 
-import '../services/favorites.dart';
+import '../notifiers/city_notifier.dart';
+import 'package:population_app/config.dart';
 
-class StampScroll extends StatefulWidget {
+class FilterScroll extends StatefulWidget {
+  const FilterScroll({
+    Key? key,
+    required this.country,
+  }) : super(key: key);
+
+  final Object? country;
+
   @override
-  State<StampScroll> createState() => _StampScrollState();
+  State<FilterScroll> createState() => _FilterScrollState();
 }
 
-class _StampScrollState extends State<StampScroll> {
+class _FilterScrollState extends State<FilterScroll> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<CityNotifier>(context, listen: false).fetchCities();
     });
-    Favorites.initial();
     super.initState();
   }
 
@@ -35,17 +40,22 @@ class _StampScrollState extends State<StampScroll> {
             return Text('data');
           } else {
             return GridView.builder(
-              itemCount: notifier.cities.length,
+              itemCount: notifier.cities
+                  .where((element) => element.country == widget.country)
+                  .toList()
+                  .length,
               itemBuilder: (BuildContext context, index) {
+                var cities = notifier.cities
+                    .where((element) => element.country == widget.country)
+                    .toList();
                 return Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: StampWidget(
-                    id: notifier.cities[index].name,
-                    flag: notifier.cities[index].country,
-                    city: notifier.cities[index].name,
-                    year: notifier.cities[index].population.first['year'],
-                    population:
-                        notifier.cities[index].population.first['value'],
+                    id: cities[index].name,
+                    flag: cities[index].country,
+                    city: cities[index].name,
+                    year: cities[index].population.first['year'],
+                    population: cities[index].population.first['value'],
                   ),
                 );
               },

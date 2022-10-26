@@ -16,7 +16,7 @@ class FilterNotifier extends ChangeNotifier {
   Future<void> fetchCountry() async {
     _state = FilterNotifierState.Loading;
     notifyListeners();
-    var response = await Services().getCountry();
+    var response = await Services.getCountry();
     _cities = response;
     if (cities.isEmpty)
       _state = FilterNotifierState.NotFound;
