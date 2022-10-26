@@ -18,10 +18,11 @@ class FilterNotifier extends ChangeNotifier {
     notifyListeners();
     var response = await Services.getCountry();
     _cities = response;
-    if (cities.isEmpty)
+    if (cities.isEmpty) {
       _state = FilterNotifierState.NotFound;
-    else
+    } else {
       _state = FilterNotifierState.HasData;
+    }
 
     notifyListeners();
   }

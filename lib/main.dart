@@ -23,7 +23,7 @@ void main() {
           create: (context) => FilterNotifier(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: MyApp(),
       ),
@@ -32,6 +32,8 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -42,7 +44,7 @@ class _MyAppState extends State<MyApp> {
     return SafeArea(
       child: Scaffold(
         body: Column(
-          children: [
+          children: const [
             TopNavigation(),
             MyDivider(),
             StampScroll(),

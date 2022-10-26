@@ -5,8 +5,9 @@ class Favorites{
 
   static void initial() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(!prefs.containsKey('favorite'))
+    if(!prefs.containsKey('favorite')) {
       prefs.setStringList('favorite',[]);
+    }
 
   }
 

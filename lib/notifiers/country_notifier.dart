@@ -18,9 +18,9 @@ class CountryNotifier extends ChangeNotifier {
     notifyListeners();
     var response = await Services.getCountries();
     _countries = response;
-    if (countries.isEmpty)
+    if (countries.isEmpty) {
       _state = CountriesNotifierState.NotFound;
-    else {
+    } else {
       _state = CountriesNotifierState.HasData;
     }
 

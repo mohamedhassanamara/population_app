@@ -13,10 +13,10 @@ class FavoriteNavigator extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
           MaterialPageRoute(
-            builder: (context) => FavoriteScreen(),
+            builder: (context) => const FavoriteScreen(),
           ),);
       },
-      child: CircleAvatar(
+      child: const CircleAvatar(
         backgroundColor: Colors.black,
         radius: 30,
         child: Icon(

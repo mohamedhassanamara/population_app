@@ -28,10 +28,10 @@ class _FilterDialogState extends State<FilterDialog> {
   Widget build(BuildContext context) {
     return Consumer<CountryNotifier>(
       builder: (context, notifier, child) {
-        if (notifier.isLoading) return Waiting();
-        if (notifier.empty)
+        if (notifier.isLoading) return const Waiting();
+        if (notifier.empty) {
           return Text('empty');
-        else {
+        } else {
           return ListView.builder(
             itemBuilder: (context, index) {
               return CountryItem(

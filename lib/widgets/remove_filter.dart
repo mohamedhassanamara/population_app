@@ -18,7 +18,7 @@ class RemoveFilter extends StatelessWidget {
           ),
         );
       },
-      child: CircleAvatar(
+      child: const CircleAvatar(
         backgroundColor: Colors.redAccent,
         child: Icon(
           Icons.close,

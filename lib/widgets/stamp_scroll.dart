@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../services/favorites.dart';
 
 class StampScroll extends StatefulWidget {
+  const StampScroll({super.key});
+
   @override
   State<StampScroll> createState() => _StampScrollState();
 }
@@ -29,10 +31,10 @@ class _StampScrollState extends State<StampScroll> {
       child: Consumer<CityNotifier>(
         builder: (context, notifier, child) {
           if (notifier.isLoading) {
-            return Waiting();
+            return const Waiting();
           }
           if (notifier.empty) {
-            return Center(child: Text('No Data'));
+            return const Center(child: Text('No Data'));
           } else {
             return GridView.builder(
               itemCount: notifier.cities.length,
@@ -49,7 +51,7 @@ class _StampScrollState extends State<StampScroll> {
                   ),
                 );
               },
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisExtent: 250,
               ),

@@ -18,7 +18,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return SafeArea(
       child: Scaffold(
         body: Column(
-          children: [
+          children: const [
             TopNavigation(),
             MyDivider(),
             FavoriteScroll(),

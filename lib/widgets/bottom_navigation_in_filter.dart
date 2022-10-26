@@ -14,7 +14,7 @@ class BottomNavigationInFilter extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: const [
           Filter(),
           RemoveFilter()
         ],

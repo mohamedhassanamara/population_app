@@ -14,13 +14,13 @@ class Filter extends StatelessWidget {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            return FilterDialog();
+            return const FilterDialog();
           },
         );
       },
       style: TextButton.styleFrom(foregroundColor: Colors.black),
       child: Row(
-        children: [
+        children: const [
           Icon(
             Icons.filter_alt_sharp,
             size: 40,

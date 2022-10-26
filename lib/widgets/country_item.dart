@@ -6,7 +6,7 @@ import '../config.dart';
 class CountryItem extends StatelessWidget {
   final String flag;
   final String name;
-  CountryItem({required this.flag, required this.name});
+  const CountryItem({required this.flag, required this.name});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -14,7 +14,7 @@ class CountryItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FilterScreen(),
+            builder: (context) => const FilterScreen(),
             settings: RouteSettings(
               arguments: flag,
             ),
@@ -43,7 +43,7 @@ class CountryItem extends StatelessWidget {
               child: FittedBox(
                 child: Text(
                   name,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       decoration: TextDecoration.none,
                       fontSize: 28,

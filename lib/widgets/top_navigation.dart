@@ -13,7 +13,7 @@ class TopNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+      children: const [
         HomeNafigator(),
         FavoriteNavigator()
       ],

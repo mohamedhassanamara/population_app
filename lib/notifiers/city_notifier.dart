@@ -18,9 +18,9 @@ class CityNotifier extends ChangeNotifier {
     notifyListeners();
     var response = await Services.getCities();
     _cities = response;
-    if (cities.isEmpty)
+    if (cities.isEmpty) {
       _state = CitiesNotifierState.NotFound;
-    else {
+    } else {
       _state = CitiesNotifierState.HasData;
     }
 

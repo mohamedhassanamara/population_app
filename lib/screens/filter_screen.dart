@@ -19,11 +19,11 @@ class _FilterScreenState extends State<FilterScreen> {
       child: Scaffold(
         body: Column(
           children: [
-            TopNavigation(),
-            MyDivider(),
+            const TopNavigation(),
+            const MyDivider(),
             FilterScroll(country: country),
-            MyDivider(),
-            BottomNavigationInFilter()
+            const MyDivider(),
+            const BottomNavigationInFilter()
           ],
         ),
       ),

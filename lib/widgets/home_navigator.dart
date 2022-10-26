@@ -18,7 +18,7 @@ class HomeNafigator extends StatelessWidget {
           ),
         );
       },
-      child: Text(
+      child: const Text(
         'POPULATION\nAPP',
         style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
       ),

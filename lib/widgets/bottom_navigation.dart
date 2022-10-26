@@ -1,9 +1,6 @@
-
 import 'package:flutter/Material.dart';
 
-import '../main.dart';
 import 'filter.dart';
-import 'filter_dialog.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({
@@ -16,11 +13,10 @@ class BottomNavigation extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: const [
           Filter(),
         ],
       ),
     );
   }
 }
-

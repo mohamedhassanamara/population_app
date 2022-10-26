@@ -34,10 +34,10 @@ class _FilterScrollState extends State<FilterScroll> {
       child: Consumer<CityNotifier>(
         builder: (context, notifier, child) {
           if (notifier.isLoading) {
-            return Waiting();
+            return const Waiting();
           }
           if (notifier.empty) {
-            return Center(child: Text('No Data'));
+            return const Center(child: Text('No Data'));
           } else {
             return GridView.builder(
               itemCount: notifier.cities
@@ -59,7 +59,7 @@ class _FilterScrollState extends State<FilterScroll> {
                   ),
                 );
               },
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisExtent: 250,
               ),

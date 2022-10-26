@@ -42,10 +42,10 @@ class _FavoriteScrollState extends State<FavoriteScroll> {
       child: Consumer<CityNotifier>(
         builder: (context, notifier, child) {
           if (notifier.isLoading) {
-            return Waiting();
+            return const Waiting();
           }
           if (notifier.empty) {
-            return Center(child: Text('No Data'));
+            return const Center(child: Text('No Data'));
           } else {
             return GridView.builder(
               itemCount: notifier.cities
@@ -67,7 +67,7 @@ class _FavoriteScrollState extends State<FavoriteScroll> {
                   ),
                 );
               },
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisExtent: 250,
               ),

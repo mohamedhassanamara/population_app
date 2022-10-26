@@ -14,12 +14,12 @@ class StampWidget extends StatefulWidget {
   final String id;
   final String population;
   final String year;
-  StampWidget(
-      {required this.flag,
+  const StampWidget(
+      {super.key, required this.flag,
       required this.id,
       required this.population,
       required this.city,
-      required this.year}) {}
+      required this.year});
 
   @override
   State<StampWidget> createState() => _StampWidgetState();
@@ -60,11 +60,11 @@ class _StampWidgetState extends State<StampWidget> {
           child: Container(
             alignment: Alignment.center,
             color:
-                isFavorite ? CupertinoColors.systemYellow : Color(0xFFA6A6A6),
+                isFavorite ? CupertinoColors.systemYellow : const Color(0xFFA6A6A6),
             child: Container(
               height: Config(context).height * 0.27,
               width: Config(context).width * 0.35,
-              color: Color(0xFFD9D9D9),
+              color: const Color(0xFFD9D9D9),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -86,14 +86,14 @@ class _StampWidgetState extends State<StampWidget> {
                         child: AutoSizeText(
                           maxLines: 4,
                           widget.city,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 22,
                           ),
                         ),
                       ),
                     ],
                   ),
-                  FittedBox(
+                  const FittedBox(
                     child: Text(
                       'Population',
                       style: TextStyle(
@@ -105,7 +105,7 @@ class _StampWidgetState extends State<StampWidget> {
                   FittedBox(
                     child: Text( 
                       widget.population,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -123,17 +123,17 @@ class _StampWidgetState extends State<StampWidget> {
                           });
                         },
                         child: Visibility(
-                          child: Icon(
+                          visible: isFavorite,
+                          child: const Icon(
                             Icons.star,
                             color: CupertinoColors.systemYellow,
                             size: 25,
                           ),
-                          visible: isFavorite,
                         ),
                       ),
                       Text(
                         widget.year,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w900,
                         ),
