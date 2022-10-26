@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:population_app/notifiers/city_notifier.dart';
-import 'package:population_app/services/favorites.dart';
 import 'package:population_app/widgets/country_item.dart';
 import 'package:population_app/widgets/stamp_scroll.dart';
 import 'package:population_app/widgets/waiting.dart';
@@ -9,20 +8,25 @@ import 'package:provider/provider.dart';
 import 'notifiers/country_notifier.dart';
 
 void main() {
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(
-        create: (context) => CountryNotifier(),
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => CountryNotifier(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CityNotifier(),
+        ),
+      ],
+      child: MaterialApp(
+        routes: {
+          // '/': (context) =>
+        },
+        debugShowCheckedModeBanner: false,
+        home: MyApp(),
       ),
-      ChangeNotifierProvider(
-        create: (context) => CityNotifier(),
-      ),
-    ],
-    child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyApp(),
     ),
-  ));
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -46,10 +50,10 @@ class _MyAppState extends State<MyApp> {
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
                 ),
                 GestureDetector(
-                  onTap: (){
-                        setState(() {
-                          dis = !dis;
-                        });
+                  onTap: () {
+                    setState(() {
+                      dis = !dis;
+                    });
                   },
                   child: CircleAvatar(
                     backgroundColor: Colors.black,
@@ -68,7 +72,9 @@ class _MyAppState extends State<MyApp> {
               height: 20,
               thickness: 5,
             ),
-            StampScroll(dis: dis,),
+            StampScroll(
+              dis: dis,
+            ),
             Divider(
               color: Colors.black,
               height: 20,
@@ -126,7 +132,6 @@ class FilterDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-
   State<FilterDialog> createState() => _FilterDialogState();
 }
 
@@ -138,27 +143,26 @@ class _FilterDialogState extends State<FilterDialog> {
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      content: Consumer<CountryNotifier>(
-        builder: (context, notifier, child) {
-          if (notifier.isLoading) return Waiting();
-          if (notifier.empty)
-            return Text('empty');
-          else {
-
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                return CountryItem(
-                    flag: notifier.countries[index].flag,
-                    name: notifier.countries[index].name);
-              },
-              itemCount: notifier.countries.length,
-            );
-          }
-        },
-      ),
+    return Consumer<CountryNotifier>(
+      builder: (context, notifier, child) {
+        if (notifier.isLoading) return Waiting();
+        if (notifier.empty)
+          return Text('empty');
+        else {
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              return CountryItem(
+                flag: notifier.countries[index].flag,
+                name: notifier.countries[index].name,
+              );
+            },
+            itemCount: notifier.countries.length,
+          );
+        }
+      },
     );
   }
 }

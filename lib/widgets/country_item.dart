@@ -9,11 +9,13 @@ class CountryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(8.0),
-      padding: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20), color: Colors.white),
       child: Row(
+
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(100),
@@ -25,12 +27,15 @@ class CountryItem extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: Config(context).width * 0.15,
+            width: Config(context).width * 0.2,
             child: FittedBox(
               child: Text(
                 name,
                 style: TextStyle(
-                  fontSize: 22,
+                  color: Colors.black,
+                  decoration: TextDecoration.none,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold
                 ),
               ),
             ),
