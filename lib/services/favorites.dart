@@ -30,4 +30,14 @@ class Favorites{
     else
       prefs.setBool('isFavorite', true);
   }
+
+  void setString(String key, String value) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('key', 'value');
+  }
+
+  void removeString(String key) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('key');
+  }
 }

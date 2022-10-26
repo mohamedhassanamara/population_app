@@ -1,45 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:population_app/notifiers/city_notifier.dart';
 import 'package:population_app/notifiers/filter_notifier.dart';
-import 'package:population_app/screens/filter_screen.dart';
-import 'package:population_app/widgets/country_item.dart';
-import 'package:population_app/widgets/stamp_scroll.dart';
-import 'package:population_app/widgets/waiting.dart';
 import 'package:provider/provider.dart';
 
-import 'notifiers/country_notifier.dart';
+import '../main.dart';
+import '../services/favorites.dart';
+import 'package:population_app/config.dart';
+import '../widgets/stamp_widget.dart';
+import '../widgets/waiting.dart';
 
-void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => CountryNotifier(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => CityNotifier(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => FilterNotifier(),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: MyApp(),
-      ),
-    ),
-  );
-}
+class FilterScreen extends StatefulWidget {
+  const FilterScreen({Key? key}) : super(key: key);
 
-class MyApp extends StatefulWidget {
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<FilterScreen> createState() => _FilterScreenState();
 }
 
-class _MyAppState extends State<MyApp> {
-  bool dis = false;
+class _FilterScreenState extends State<FilterScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<CityNotifier>(context, listen: false).fetchCities();
+    });
+    Favorites().initial();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Object? t = ModalRoute.of(context)?.settings.arguments;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -53,9 +42,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      dis = !dis;
-                    });
+                    setState(() {});
                   },
                   child: CircleAvatar(
                     backgroundColor: Colors.black,
@@ -74,8 +61,44 @@ class _MyAppState extends State<MyApp> {
               height: 20,
               thickness: 5,
             ),
-            StampScroll(
-              dis: dis,
+            SizedBox(
+              height: Config(context).height * .7,
+              child: Consumer<CityNotifier>(
+                builder: (context, notifier, child) {
+                  if (notifier.isLoading) {
+                    return Waiting();
+                  }
+                  if (notifier.empty) {
+                    return Text('data');
+                  } else {
+                    return GridView.builder(
+                      itemCount: notifier.cities
+                          .where((element) => element.country == t)
+                          .toList()
+                          .length,
+                      itemBuilder: (BuildContext context, index) {
+                        var cities = notifier.cities
+                            .where((element) => element.country == t)
+                            .toList();
+                        return Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: StampWidget(
+                            id: cities[index].name,
+                            flag: cities[index].country,
+                            city: cities[index].name,
+                            year: cities[index].population.first['year'],
+                            population: cities[index].population.first['value'],
+                          ),
+                        );
+                      },
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent: 250,
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
             Divider(
               color: Colors.black,
@@ -124,47 +147,6 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class FilterDialog extends StatefulWidget {
-  const FilterDialog({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<FilterDialog> createState() => _FilterDialogState();
-}
-
-class _FilterDialogState extends State<FilterDialog> {
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<CountryNotifier>(context, listen: false).fetchCountries();
-    });
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<CountryNotifier>(
-      builder: (context, notifier, child) {
-        if (notifier.isLoading) return Waiting();
-        if (notifier.empty)
-          return Text('empty');
-        else {
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              return CountryItem(
-                flag: notifier.countries[index].flag,
-                name: notifier.countries[index].name,
-              );
-            },
-            itemCount: notifier.countries.length,
-          );
-        }
-      },
     );
   }
 }

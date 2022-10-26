@@ -4,13 +4,10 @@ class City {
   final String name;
   final String country;
   final List population;
-  // final String year;
   City({
-
     required this.name,
     required this.country,
     required this.population,
-    // required this.year
   });
   factory City.fromJson(Map<String, dynamic> json, List<Country> list) {
     return City(
