@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:population_app/notifiers/city_notifier.dart';
 import 'package:population_app/notifiers/filter_notifier.dart';
+import 'package:population_app/screens/favorite_screen.dart';
 import 'package:population_app/screens/filter_screen.dart';
 import 'package:population_app/widgets/country_item.dart';
 import 'package:population_app/widgets/stamp_scroll.dart';
@@ -37,7 +38,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool dis = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -53,9 +53,10 @@ class _MyAppState extends State<MyApp> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      dis = !dis;
-                    });
+                    Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoriteScreen(),
+                    ),);
                   },
                   child: CircleAvatar(
                     backgroundColor: Colors.black,
@@ -74,9 +75,7 @@ class _MyAppState extends State<MyApp> {
               height: 20,
               thickness: 5,
             ),
-            StampScroll(
-              dis: dis,
-            ),
+            StampScroll(),
             Divider(
               color: Colors.black,
               height: 20,
