@@ -32,7 +32,7 @@ class _StampScrollState extends State<StampScroll> {
             return Waiting();
           }
           if (notifier.empty) {
-            return Text('data');
+            return Center(child: Text('No Data'));
           } else {
             return GridView.builder(
               itemCount: notifier.cities.length,

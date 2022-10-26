@@ -37,7 +37,7 @@ class _FilterScrollState extends State<FilterScroll> {
             return Waiting();
           }
           if (notifier.empty) {
-            return Text('data');
+            return Center(child: Text('No Data'));
           } else {
             return GridView.builder(
               itemCount: notifier.cities

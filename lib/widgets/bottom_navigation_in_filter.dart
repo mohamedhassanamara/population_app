@@ -1,12 +1,10 @@
 
 import 'package:flutter/Material.dart';
-
-import '../main.dart';
+import 'package:population_app/widgets/remove_filter.dart';
 import 'filter.dart';
-import 'filter_dialog.dart';
 
-class BottomNavigation extends StatelessWidget {
-  const BottomNavigation({
+class BottomNavigationInFilter extends StatelessWidget {
+  const BottomNavigationInFilter({
     Key? key,
   }) : super(key: key);
 
@@ -18,6 +16,7 @@ class BottomNavigation extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Filter(),
+          RemoveFilter()
         ],
       ),
     );

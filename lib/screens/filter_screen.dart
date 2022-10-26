@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:population_app/widgets/top_navigation.dart';
-import '../widgets/bottom_navigation.dart';
+import '../widgets/bottom_navigation_in_filter.dart';
 import '../widgets/filter_scroll.dart';
 import '../widgets/basic/my_divider.dart';
 
@@ -23,7 +23,7 @@ class _FilterScreenState extends State<FilterScreen> {
             MyDivider(),
             FilterScroll(country: country),
             MyDivider(),
-            BottomNavigation()
+            BottomNavigationInFilter()
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:population_app/config.dart';
@@ -81,29 +82,33 @@ class _StampWidgetState extends State<StampWidget> {
                       ),
                       SizedBox(
                         width: Config(context).width * 0.15,
-                        child: FittedBox(
-                          child: Text(
-                            widget.city,
-                            style: TextStyle(
-                              fontSize: 22,
-                            ),
+                        height: Config(context).width * 0.1,
+                        child: AutoSizeText(
+                          maxLines: 4,
+                          widget.city,
+                          style: TextStyle(
+                            fontSize: 22,
                           ),
                         ),
                       ),
                     ],
                   ),
-                  Text(
-                    'Population',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
+                  FittedBox(
+                    child: Text(
+                      'Population',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  Text(
-                    widget.population,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                  FittedBox(
+                    child: Text( 
+                      widget.population,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   Row(
